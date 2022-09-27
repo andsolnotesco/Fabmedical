@@ -16,10 +16,10 @@ on:
 # Environment variables are defined so that they can be used throughout the job definitions.
 env:
   imageRepository: 'content-web'
-  resourceGroupName: 'fabmedical-FabmedicalDpl'
-  clusterName: 'fabmedical-FabmedicalDpl'
-  containerRegistryName: 'fabmedicalFabmedicalDpl'
-  containerRegistry: 'fabmedicalFabmedicalDpl.azurecr.io'
+  resourceGroupName: 'fabmedical-747641'
+  clusterName: 'fabmedical-747641'
+  containerRegistryName: 'fabmedical747641'
+  containerRegistry: 'fabmedical747641.azurecr.io'
   dockerfilePath: './content-web'
   tag: '${{ github.run_id  }}'
 
@@ -69,14 +69,14 @@ jobs:
         namespace: ingress-demo
         arguments: --force true
         
-   - name: Deploy to AKS
-     uses: azure/k8s-deploy@v1
-     with:
-       manifests: |
-         web.deployment.yml
-         web.service.yml
-       images: |
-         ${{ env.containerRegistry }}.azurecr.io/${{ env.imageRepository }}:${{ env.tag }}
-       imagepullsecrets: |
-         ingress-demo-secret
-       namespace: ingress-demo
+    - name: Deploy to AKS
+      uses: azure/k8s-deploy@v1
+      with:
+        manifests: |
+          web.deployment.yml
+          web.service.yml
+        images: |
+          ${{ env.containerRegistry }}.azurecr.io/${{ env.imageRepository }}:${{ env.tag }}
+        imagepullsecrets: |
+          ingress-demo-secret
+        namespace: ingress-demo
